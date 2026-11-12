@@ -9,7 +9,7 @@
 
 | # | 方向 | 状态 | 备注 |
 |---|------|------|------|
-| 1 | 生长延时 (growth time-lapse)：0–90 天时间轴、种间竞争、缺光区域；TS 引擎在 Web Worker 中运行 | 🟡 进行中 | 11-12：sim-core TS 引擎 + /studio/sim 时间轴（功能开关 `growthTimelapse` 后，默认关，等视觉确认） |
+| 1 | 生长延时 (growth time-lapse)：0–90 天时间轴、种间竞争、缺光区域；TS 引擎在 Web Worker 中运行 | 🟢 已上线 v1 | 11-12：sim-core TS 引擎 + /studio/sim 时间轴，视觉已获批准，开关已打开 |
 | 2 | 3D 编辑器和渲染重做：拖拽石头/沉木/水草，Iwagumi / Nature / Dutch 模板，构图辅助线 | ⚪ 未开始 | 下一步：正面视角风格化渲染（instancing 叶片 + MeshPhysicalMaterial transmission） |
 | 3 | AI 功能：拍照识别水草 + 改造建议；按缸尺寸和风格自动布局 | ⚪ 未开始 | |
 | 4 | 扩充水草库到 150+ 种 | 🟡 进行中 | 11-12：36 → ≥70 种 |
@@ -36,7 +36,7 @@
 
 | 开关 | 环境变量 | 默认 | 状态 |
 |------|----------|------|------|
-| `growthTimelapse` | `NEXT_PUBLIC_FF_GROWTH_TIMELAPSE` | 关 | 等 Xiaopu 确认截图（见 docs/iterations/2026-11-12.md） |
+| `growthTimelapse` | `NEXT_PUBLIC_FF_GROWTH_TIMELAPSE` | 开（prod） | Xiaopu 于 2026-11-12 批准视觉，aquascape-web#3 打开 |
 
 ## 契约 (contracts, orchestrator-only)
 - `aquascape-sim/ts/src/contract.ts` — `@aquascape/sim-core` v1.0.0（SimInput / Frame / SimResult / Worker 协议）
