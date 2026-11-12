@@ -1,6 +1,6 @@
 # aquascape-studio ROADMAP
 
-> 维护者：orchestrator（兼产品经理）。每次迭代结束时更新。最后更新：2026-11-12。
+> 维护者：orchestrator（兼产品经理）。每次迭代结束时更新。最后更新：2026-11-12（第 2 轮）。
 
 ## 核心差异点
 "看着自己设计的缸长起来" —— 由真正的生长模拟 (growth simulation) 引擎驱动，而不是预渲染动画。
@@ -10,10 +10,10 @@
 | # | 方向 | 状态 | 备注 |
 |---|------|------|------|
 | 1 | 生长延时 (growth time-lapse)：0–90 天时间轴、种间竞争、缺光区域；TS 引擎在 Web Worker 中运行 | 🟢 已上线 v1 | 11-12：sim-core TS 引擎 + /studio/sim 时间轴，视觉已获批准，开关已打开 |
-| 2 | 3D 编辑器和渲染重做：拖拽石头/沉木/水草，Iwagumi / Nature / Dutch 模板，构图辅助线 | ⚪ 未开始 | 下一步：正面视角风格化渲染（instancing 叶片 + MeshPhysicalMaterial transmission） |
+| 2 | 3D 编辑器和渲染重做：拖拽石头/沉木/水草，Iwagumi / Nature / Dutch 模板，构图辅助线 | 🟡 进行中 | 11-12 r2：`<FrontalTank>` 正面风格化水缸（实例化厚叶片 + shader 背光，不用 transmission）由 sim 帧驱动，接入 /studio/sim，`stylizedTank` 开关**默认关，等 Xiaopu 确认视觉**。下一步：打磨 + 满缸模板 + 拖拽编辑 |
 | 3 | AI 功能：拍照识别水草 + 改造建议；按缸尺寸和风格自动布局 | ⚪ 未开始 | |
-| 4 | 扩充水草库到 150+ 种 | 🟡 进行中 | 11-12：36 → ≥70 种 |
-| 5 | 降低基础设施成本（去 NAT、精简 Fargate） | ⏸ 需 Xiaopu 批准 | 涉及删除/替换 AWS 资源，必须先问 |
+| 4 | 扩充水草库到 150+ 种 | 🟡 进行中 | 11-12：36 → 78 种；r2：78 种都有 `visual`（叶形/叶序/尺寸/红梢色），其中 70 种尺寸待补来源 |
+| 5 | 降低基础设施成本（去 NAT、精简 Fargate） | ⏸ 需 Xiaopu 批准 | [infra#1](https://github.com/aquascape-studio/aquascape-infra/pull/1)（lixiangdapanji 开，称已部署到 dev，dev 约 $5/月）未合并，等 Xiaopu 批准 |
 
 ## 视觉风格（Xiaopu 于 2026-11-11 选定）
 
@@ -37,7 +37,12 @@
 | 开关 | 环境变量 | 默认 | 状态 |
 |------|----------|------|------|
 | `growthTimelapse` | `NEXT_PUBLIC_FF_GROWTH_TIMELAPSE` | 开（prod） | Xiaopu 于 2026-11-12 批准视觉，aquascape-web#3 打开 |
+| `stylizedTank` | `NEXT_PUBLIC_FF_STYLIZED_TANK` | 关 | 11-12 r2 上线代码；等 Xiaopu 确认截图（docs/iterations/2026-11-12-r2.md）后再打开 |
 
 ## 契约 (contracts, orchestrator-only)
-- `aquascape-sim/ts/src/contract.ts` — `@aquascape/sim-core` v1.0.0（SimInput / Frame / SimResult / Worker 协议）
-- `aquascape-botany/schema/plant.schema.json`
+- `aquascape-sim/ts/src/contract.ts` — `@aquascape/sim-core` v1.1.1（SimInput / Frame / SimResult / Worker 协议；+parDailyMean、substrate 网格、cancelled、事件与包络规则）
+- `aquascape-render/src/contract.ts` — FrontalTank v1.0.1（FrontalTankProps / SpeciesLook / PlantVisual / speciesLook）
+- `aquascape-botany/schema/plant.schema.json` + `js/schema.ts` — 新增可选 `visual` 块
+
+## 当前视觉决定（11-12 r2）
+- 3D 水缸：实例化 (instancing) 带厚度圆润叶片 + shader 背光假透光（不用 transmission，性能原因）；纯白影棚 + 柔光；只正面相机；光滑卵石；坡形底床；红色水草用 botany `tipColorHex`，没有时用珊瑚橙 #E8735A。
