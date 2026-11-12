@@ -13,7 +13,7 @@
 | 2 | 3D 编辑器和渲染重做：拖拽石头/沉木/水草，Iwagumi / Nature / Dutch 模板，构图辅助线 | 🟡 进行中 | 11-12 r2：`<FrontalTank>` 正面风格化水缸（实例化厚叶片 + shader 背光，不用 transmission）由 sim 帧驱动，接入 /studio/sim，`stylizedTank` 开关**默认关，等 Xiaopu 确认视觉**。下一步：打磨 + 满缸模板 + 拖拽编辑 |
 | 3 | AI 功能：拍照识别水草 + 改造建议；按缸尺寸和风格自动布局 | ⚪ 未开始 | |
 | 4 | 扩充水草库到 150+ 种 | 🟡 进行中 | 11-12：36 → 78 种；r2：78 种都有 `visual`（叶形/叶序/尺寸/红梢色），其中 70 种尺寸待补来源 |
-| 5 | 降低基础设施成本（去 NAT、精简 Fargate） | ⏸ 需 Xiaopu 批准 | [infra#1](https://github.com/aquascape-studio/aquascape-infra/pull/1)（lixiangdapanji 开，称已部署到 dev，dev 约 $5/月）未合并，等 Xiaopu 批准 |
+| 5 | 降低基础设施成本（去 NAT、精简 Fargate） | 🟢 dev 已完成 | [infra#1](https://github.com/aquascape-studio/aquascape-infra/pull/1) 已合并（11-12，Xiaopu 授权）：dev 去 NAT、去 ALB、Spot、定时缩到 0，约 $5/月；prod 未动。dev 只在每天 01:30–04:00 PT 运行 |
 
 ## 视觉风格（Xiaopu 于 2026-11-11 选定）
 
@@ -29,6 +29,13 @@
   - 从中提取的令牌 (design tokens)：背景 `#FFFFFF`，正文 `#1D1D1F`，次要文字 `#6E6E73`，卡片 `#F5F5F7`（圆角 28px），主色 `#0A6F78`（hover `#064C52`），健康绿 `#1D7A3E`，警示珊瑚 `#B2441F`；字体 Inter + Noto Sans SC；H1 `clamp(44px,6.6vw,88px)` 700 字距 -0.04em；磨砂导航 52px `rgba(255,255,255,.78)` + `blur(20px) saturate(180%)`；胶囊控制条 + 44px 圆形播放键 + 分段跳转 10/35/60/90 天。
 - **上线规则**：首页、编辑器的视觉改动先放在功能开关 (feature flag) 后面，部署时默认关闭；截图请 Xiaopu 确认，认可后下一轮再打开。
 
+## Xiaopu 的长期授权（2026-11-12）
+Xiaopu 说："该合并合并，不用等我 approve，我一周之后来看成果。"因此从 11-12 起到他回来（约 11-19）：
+- **视觉改动不再等确认**：做完、自测、截图写进迭代日志后，直接打开功能开关上线；每次都保留"revert 开关 PR"的回滚路径。
+- **可以合并待合并的 PR**（CI 绿、符合契约），包括已在 dev 生效的 infra PR。
+- **仍然不做**：在控制台/CLI 手动建资源、轮换或泄露密钥、超出预算、删仓库、force-push 默认分支。新增 AWS 资源的 PR 照常写清费用；prod 资源删除或替换仍先在日志里写清理由，能等就等他回来。
+- 每天照常写迭代日志 + 截图，方便他回来一次看完。
+
 ## 交互原则
 首页即水缸；画布优先 (canvas-first) 编辑器，底部时间轴叠加生长曲线；⌘K 命令面板一句话造景；动效有功能 (functional motion)，尊重 prefers-reduced-motion；对比度 4.5:1，触控目标 ≥44px。
 
@@ -37,7 +44,7 @@
 | 开关 | 环境变量 | 默认 | 状态 |
 |------|----------|------|------|
 | `growthTimelapse` | `NEXT_PUBLIC_FF_GROWTH_TIMELAPSE` | 开（prod） | Xiaopu 于 2026-11-12 批准视觉，aquascape-web#3 打开 |
-| `stylizedTank` | `NEXT_PUBLIC_FF_STYLIZED_TANK` | 关 | 11-12 r2 上线代码；等 Xiaopu 确认截图（docs/iterations/2026-11-12-r2.md）后再打开 |
+| `stylizedTank` | `NEXT_PUBLIC_FF_STYLIZED_TANK` | 开（prod） | Xiaopu 免确认，[web#6](https://github.com/aquascape-studio/aquascape-web/pull/6) 打开（11-12）；回滚 = revert web#6 |
 
 ## 契约 (contracts, orchestrator-only)
 - `aquascape-sim/ts/src/contract.ts` — `@aquascape/sim-core` v1.1.1（SimInput / Frame / SimResult / Worker 协议；+parDailyMean、substrate 网格、cancelled、事件与包络规则）
