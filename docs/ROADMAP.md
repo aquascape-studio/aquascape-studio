@@ -1,6 +1,6 @@
 # aquascape-studio ROADMAP
 
-> 维护者：orchestrator（兼产品经理）。每次迭代结束时更新。最后更新：2026-11-15。
+> 维护者：orchestrator（兼产品经理）。每次迭代结束时更新。最后更新：2026-11-16。
 
 ## 核心差异点
 "看着自己设计的缸长起来" —— 由真正的生长模拟 (growth simulation) 引擎驱动，而不是预渲染动画。
@@ -10,9 +10,9 @@
 | # | 方向 | 状态 | 备注 |
 |---|------|------|------|
 | 1 | 生长延时 (growth time-lapse)：0–90 天时间轴、种间竞争、缺光区域；TS 引擎在 Web Worker 中运行 | 🟢 已上线 v1 | 11-12：sim-core TS 引擎 + /studio/sim 时间轴，视觉已获批准，开关已打开 |
-| 2 | 3D 编辑器和渲染重做：拖拽石头/沉木/水草，Iwagumi / Nature / Dutch 模板，构图辅助线 | 🟡 进行中 | 11-12 r2：`<FrontalTank>` 正面风格化水缸上线。11-14：FrontalTank 1.1.0（角色石、埋石、坡形底床、三分线/黄金分割辅助线、布局缓存）+ 4 个风格模板（三尊石组 / 三角 / 凹形 / 荷兰街道），`styleTemplates` 开关**默认关，等 Xiaopu 确认**。11-15：拖拽编辑器 v1（FrontalTank 1.2.0 可选中/拖动，编辑器文档模型 + 撤销重做 + `?scape=` 分享链接，松手重跑模拟），`dragEditor` 开关**默认关**。下一步：修编辑器布局问题、沉木拖拽/缩放、⌘K 一句话造景 |
+| 2 | 3D 编辑器和渲染重做：拖拽石头/沉木/水草，Iwagumi / Nature / Dutch 模板，构图辅助线 | 🟡 进行中 | 11-12 r2：`<FrontalTank>` 正面风格化水缸上线。11-14：FrontalTank 1.1.0（角色石、埋石、坡形底床、三分线/黄金分割辅助线、布局缓存）+ 4 个风格模板（三尊石组 / 三角 / 凹形 / 荷兰街道），`styleTemplates` 开关**默认关，等 Xiaopu 确认**。11-15：拖拽编辑器 v1（FrontalTank 1.2.0 可选中/拖动，编辑器文档模型 + 撤销重做 + `?scape=` 分享链接，松手重跑模拟），`dragEditor` 开关**默认关**。11-16：沉木三种造型（枝状 / 树根 / 横木，FrontalTank 1.3.0）+ 编辑器 1.1.0（添加石头 / 沉木、−/+ 缩放、换沉木造型、只改硬景观不重跑模拟）+ 修好 11-15 的布局问题，仍在 `dragEditor` 开关后。下一步：模板 1.0.2（去管制物种、树根沉木前置）、附生植物绑沉木、⌘K 一句话造景 |
 | 3 | AI 功能：拍照识别水草 + 改造建议；按缸尺寸和风格自动布局 | ⚪ 未开始 | |
-| 4 | 扩充水草库到 150+ 种 | 🟡 进行中 | 11-12：36 → 78；11-13：→ 111；11-14：→ 142；11-15：→ 157 种 ✅ 达标。11-15 schema 对齐：zod 是唯一真源，JSON Schema 自动生成，Python 用 jsonschema 校验，CI 检查。大量数值仍为估计值待补来源 |
+| 4 | 扩充水草库到 150+ 种 | 🟡 进行中 | 11-12：36 → 78；11-13：→ 111；11-14：→ 142；11-15：→ 157 种 ✅ 达标。11-16：schema 0.7.0 加 `regulated[]`（7 种管制物种）；25 种叶片尺寸换成有出处的值（botany 0.7.1）。11-15 schema 对齐：zod 是唯一真源，JSON Schema 自动生成，Python 用 jsonschema 校验，CI 检查。大量数值仍为估计值待补来源 |
 | 5 | 降低基础设施成本（去 NAT、精简 Fargate） | 🟢 dev 已完成 | [infra#1](https://github.com/aquascape-studio/aquascape-infra/pull/1) 已合并（11-12，Xiaopu 授权）：dev 去 NAT、去 ALB、Spot、定时缩到 0，约 $5/月；prod 未动。dev 只在每天 01:30–04:00 PT 运行 |
 
 ## 视觉风格（Xiaopu 于 2026-11-11 选定）
@@ -46,14 +46,14 @@ Xiaopu 说："该合并合并，不用等我 approve，我一周之后来看成�
 | `growthTimelapse` | `NEXT_PUBLIC_FF_GROWTH_TIMELAPSE` | 开（prod） | Xiaopu 于 2026-11-12 批准视觉，aquascape-web#3 打开 |
 | `stylizedTank` | `NEXT_PUBLIC_FF_STYLIZED_TANK` | 开（prod） | Xiaopu 免确认，[web#6](https://github.com/aquascape-studio/aquascape-web/pull/6) 打开（11-12）；回滚 = revert web#6 |
 | `styleTemplates` | `NEXT_PUBLIC_FF_STYLE_TEMPLATES` | 关 | [web#9](https://github.com/aquascape-studio/aquascape-web/pull/9)（11-14）。等 Xiaopu 看截图后再开 |
-| `dragEditor` | `NEXT_PUBLIC_FF_DRAG_EDITOR` | 关 | [web#12](https://github.com/aquascape-studio/aquascape-web/pull/12)（11-15）。需要 stylizedTank；建议和 styleTemplates 一起确认后一起打开 |
+| `dragEditor` | `NEXT_PUBLIC_FF_DRAG_EDITOR` | 关 | [web#12](https://github.com/aquascape-studio/aquascape-web/pull/12)（11-15）、[web#15](https://github.com/aquascape-studio/aquascape-web/pull/15)（11-16 沉木 / 缩放 / 布局修复）。需要 stylizedTank；建议和 styleTemplates 一起确认后一起打开 |
 
 ## 契约 (contracts, orchestrator-only)
 - `aquascape-sim/ts/src/contract.ts` — `@aquascape/sim-core` v1.1.1（SimInput / Frame / SimResult / Worker 协议；+parDailyMean、substrate 网格、cancelled、事件与包络规则）
-- `aquascape-render/src/contract.ts` — FrontalTank v1.2.0（1.1：石头角色、buriedFrac、guides、focalPoint、bed；1.2：editable / selected / onSelect / onMove / footprintContains）
+- `aquascape-render/src/contract.ts` — FrontalTank v1.3.0（1.1：石头角色、buriedFrac、guides、focalPoint、bed；1.2：editable / selected / onSelect / onMove / footprintContains；1.3：woodStyle、单件几何缓存、clampHardscapeXZ）
 - `aquascape-web/lib/templates/contract.ts` — 风格模板 v1.0.1（ScapeTemplate / instantiate；+iwagumi 构图、按缸面积缩放数量）
-- `aquascape-web/lib/editor/contract.ts` — 拖拽编辑器 v1.0.0（ScapeDoc / EditOp / reducer / encodeScape）
-- `aquascape-botany/js/schema.ts`（zod，唯一真源）→ 生成 `schema/plant.schema.json`；含可选 `visual` 块
+- `aquascape-web/lib/editor/contract.ts` — 拖拽编辑器 v1.1.0（ScapeDoc / EditOp / reducer / encodeScape；1.1：resize / addHardscape / setWoodStyle / previewBase / needsResim）
+- `aquascape-botany/js/schema.ts`（zod，唯一真源，schema 0.7.0）→ 生成 `schema/plant.schema.json`；含可选 `visual` 块、可选 `regulated[]`
 
 ## 当前视觉决定（11-12 r2）
 - 3D 水缸：实例化 (instancing) 带厚度圆润叶片 + shader 背光假透光（不用 transmission，性能原因）；纯白影棚 + 柔光；只正面相机；光滑卵石；坡形底床；红色水草用 botany `tipColorHex`，没有时用珊瑚橙 #E8735A。
@@ -68,3 +68,11 @@ Xiaopu 说："该合并合并，不用等我 approve，我一周之后来看成�
 ## 当前视觉决定（11-15）
 - 选中：底床上一圈柔和的主色 #0A6F78（60%）光弧，只画前半圈（正面视角下后半圈被草毯挡住）；拖动时轻微抬起 0.4 cm；没有箭头/坐标轴之类的 gizmo。
 - 编辑工具条：磨砂胶囊（撤销 / 重做 / 删除 / 复制分享链接），下面一行"选择"石头芯片和"添加"水草芯片，触控目标 ≥44px。
+
+## 当前视觉决定（11-16）
+- 沉木：圆润渐细的管状，分叉处柔和过渡，枝梢圆头；无树皮纹理、无硬折痕；暖棕 #7A5A43（根部）→ #A88466（枝梢）渐变，低光泽；只埋 5%。三种造型：枝状（上扬扇形树冠）、树根（30–45° 倾斜主干 + 根盘）、横木（低矮横卧，给附生植物当平台）。
+- 缩放：工具条上的 −/+ 胶囊按钮 + 键盘，不做 3D 手柄。沉木造型用分段控件"枝状 / 树根 / 横木"。
+- 管制物种：只在添加芯片的提示和读屏文字里显示"部分地区管制"，不用醒目的警告色。
+
+## 长期授权的执行说明（11-16）
+ROADMAP 里记录的"视觉改动不再等确认"与每日定时任务提示词（视觉改动等确认）冲突。11-14 起的做法都是：**开关保持关闭，等 Xiaopu 在 issue 里回复"可以开"**。以定时任务提示词为准，直到 Xiaopu 另行说明。
