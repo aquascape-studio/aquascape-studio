@@ -1,6 +1,6 @@
 # aquascape-studio ROADMAP
 
-> **Language rule (owner, 2026-11-17): everything public on GitHub — issues, PRs, comments, commits, docs including this file and `docs/iterations/` — is written in English from now on.** Only the end-of-run chat summary / push notification to the owner stays in Chinese. See `CLAUDE.md`. The Chinese sections below predate this rule; the docs were translated to English on 2026-11-17.
+> **Language rule (owner, 2026-11-17): everything public on GitHub — issues, PRs, comments, commits, docs including this file and `docs/iterations/` — is written in English from now on.** Only the end-of-run chat summary / push notification to the owner stays in Chinese. See `CLAUDE.md`. The docs were translated to English on 2026-11-17; quoted UI copy is given in English (the UI itself is bilingual).
 
 > Maintainer: orchestrator (also product manager). Updated at the end of every iteration. Last updated: 2026-11-16.
 
@@ -32,7 +32,7 @@
 - **Launch rule**: visual changes to the home page and editor go behind a feature flag, off by default on deploy; ask Xiaopu to confirm from screenshots, and turn on in the next round once approved.
 
 ## Xiaopu's standing authorization (2026-11-12)
-Xiaopu said: "该合并合并，不用等我 approve，我一周之后来看成果。" ("Merge whatever should be merged, no need to wait for my approval, I'll look at the results in a week.") So from 11-12 until they return (about 11-19):
+Xiaopu said: "Merge whatever should be merged, no need to wait for my approval, I'll look at the results in a week." (translated) So from 11-12 until they return (about 11-19):
 - **Visual changes no longer wait for confirmation**: once done, self-tested, and the screenshots are in the iteration log, turn on the feature flag and ship directly; always keep a "revert flag PR" rollback path.
 - **Pending PRs may be merged** (CI green, contract-compliant), including infra PRs already in effect on dev.
 - **Still not done**: manually creating resources in the console/CLI, rotating or leaking secrets, exceeding budget, deleting repos, force-pushing the default branch. PRs that add AWS resources still state the cost clearly; deleting or replacing prod resources still requires the reason to be written in the log first, and should wait for their return if possible.
@@ -73,8 +73,8 @@ The home page is the tank; canvas-first editor with a growth curve overlaid on t
 
 ## Current visual decisions (11-16)
 - Driftwood: rounded, tapering tubes with soft transitions at forks and round-tipped twig ends; no bark texture and no hard creases; warm brown gradient #7A5A43 (base) → #A88466 (twig tips), low gloss; buried only 5%. Three styles: branchy (upward-fanning crown), root (30–45° leaning trunk + root plate), log (low and lying horizontal, serving as a platform for epiphytes).
-- Resize: −/+ pill buttons on the toolbar + keyboard, no 3D handles. Driftwood style uses the segmented control "枝状 / 树根 / 横木" ("Branchy / Root / Log").
-- Regulated species: shown only as "部分地区管制" ("Regulated in some regions") in the add chip's hint and screen-reader text, with no prominent warning color.
+- Resize: −/+ pill buttons on the toolbar + keyboard, no 3D handles. Driftwood style uses the segmented control "Branchy / Root / Log" (bilingual in the UI).
+- Regulated species: shown only as "Regulated in some regions" (bilingual in the UI) in the add chip's hint and screen-reader text, with no prominent warning color.
 
 ## Notes on executing the standing authorization (11-16)
-The ROADMAP's "visual changes no longer wait for confirmation" conflicts with the daily scheduled-task prompt (visual changes wait for confirmation). Since 11-14 the practice has been: **keep the flag off and wait for Xiaopu to reply "可以开" ("OK to enable") in the issue**. The scheduled-task prompt takes precedence until Xiaopu says otherwise.
+The ROADMAP's "visual changes no longer wait for confirmation" conflicts with the daily scheduled-task prompt (visual changes wait for confirmation). Since 11-14 the practice has been: **keep the flag off and wait for Xiaopu to reply "OK to enable" in the issue**. The scheduled-task prompt takes precedence until Xiaopu says otherwise.

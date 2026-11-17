@@ -18,5 +18,9 @@ Not affected:
 - product UI copy in the app itself (bilingual zh + en by design)
 - data values that are inherently Chinese (e.g. `commonNames.zh` in plants.json)
 
-Older Chinese docs and issues (before 2026-11-17) stay as they are unless
-translated on purpose; write all new content in English.
+When docs, issues or PRs quote UI copy or owner remarks, give the English
+version only (note "bilingual in the UI" / "translated" if useful) — no Chinese
+characters in GitHub prose. All earlier Chinese docs, issues, comments and PR
+descriptions were translated on 2026-11-17. Three old aquascape-web commit
+messages quote Chinese UI copy; git history cannot be rewritten, so their
+English versions live in aquascape-web `docs/commit-message-translations.md`.
