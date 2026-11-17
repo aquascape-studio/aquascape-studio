@@ -1,5 +1,7 @@
 # aquascape-studio ROADMAP
 
+> **Language rule (owner, 2026-11-17): everything public on GitHub — issues, PRs, comments, commits, docs including this file and `docs/iterations/` — is written in English from now on.** Only the end-of-run chat summary / push notification to the owner stays in Chinese. See `CLAUDE.md`. The Chinese sections below predate this rule and will be translated when next edited.
+
 > 维护者：orchestrator（兼产品经理）。每次迭代结束时更新。最后更新：2026-11-16。
 
 ## 核心差异点
