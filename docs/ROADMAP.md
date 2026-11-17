@@ -1,80 +1,80 @@
 # aquascape-studio ROADMAP
 
-> **Language rule (owner, 2026-11-17): everything public on GitHub — issues, PRs, comments, commits, docs including this file and `docs/iterations/` — is written in English from now on.** Only the end-of-run chat summary / push notification to the owner stays in Chinese. See `CLAUDE.md`. The Chinese sections below predate this rule and will be translated when next edited.
+> **Language rule (owner, 2026-11-17): everything public on GitHub — issues, PRs, comments, commits, docs including this file and `docs/iterations/` — is written in English from now on.** Only the end-of-run chat summary / push notification to the owner stays in Chinese. See `CLAUDE.md`. The Chinese sections below predate this rule; the docs were translated to English on 2026-11-17.
 
-> 维护者：orchestrator（兼产品经理）。每次迭代结束时更新。最后更新：2026-11-16。
+> Maintainer: orchestrator (also product manager). Updated at the end of every iteration. Last updated: 2026-11-16.
 
-## 核心差异点
-"看着自己设计的缸长起来" —— 由真正的生长模拟 (growth simulation) 引擎驱动，而不是预渲染动画。
+## Core differentiator
+"Watch the tank you designed grow" — driven by a real growth simulation engine, not a pre-rendered animation.
 
-## 优先级与状态
+## Priorities and status
 
-| # | 方向 | 状态 | 备注 |
+| # | Direction | Status | Notes |
 |---|------|------|------|
-| 1 | 生长延时 (growth time-lapse)：0–90 天时间轴、种间竞争、缺光区域；TS 引擎在 Web Worker 中运行 | 🟢 已上线 v1 | 11-12：sim-core TS 引擎 + /studio/sim 时间轴，视觉已获批准，开关已打开 |
-| 2 | 3D 编辑器和渲染重做：拖拽石头/沉木/水草，Iwagumi / Nature / Dutch 模板，构图辅助线 | 🟡 进行中 | 11-12 r2：`<FrontalTank>` 正面风格化水缸上线。11-14：FrontalTank 1.1.0（角色石、埋石、坡形底床、三分线/黄金分割辅助线、布局缓存）+ 4 个风格模板（三尊石组 / 三角 / 凹形 / 荷兰街道），`styleTemplates` 开关**默认关，等 Xiaopu 确认**。11-15：拖拽编辑器 v1（FrontalTank 1.2.0 可选中/拖动，编辑器文档模型 + 撤销重做 + `?scape=` 分享链接，松手重跑模拟），`dragEditor` 开关**默认关**。11-16：沉木三种造型（枝状 / 树根 / 横木，FrontalTank 1.3.0）+ 编辑器 1.1.0（添加石头 / 沉木、−/+ 缩放、换沉木造型、只改硬景观不重跑模拟）+ 修好 11-15 的布局问题，仍在 `dragEditor` 开关后。下一步：模板 1.0.2（去管制物种、树根沉木前置）、附生植物绑沉木、⌘K 一句话造景 |
-| 3 | AI 功能：拍照识别水草 + 改造建议；按缸尺寸和风格自动布局 | ⚪ 未开始 | |
-| 4 | 扩充水草库到 150+ 种 | 🟡 进行中 | 11-12：36 → 78；11-13：→ 111；11-14：→ 142；11-15：→ 157 种 ✅ 达标。11-16：schema 0.7.0 加 `regulated[]`（7 种管制物种）；25 种叶片尺寸换成有出处的值（botany 0.7.1）。11-15 schema 对齐：zod 是唯一真源，JSON Schema 自动生成，Python 用 jsonschema 校验，CI 检查。大量数值仍为估计值待补来源 |
-| 5 | 降低基础设施成本（去 NAT、精简 Fargate） | 🟢 dev 已完成 | [infra#1](https://github.com/aquascape-studio/aquascape-infra/pull/1) 已合并（11-12，Xiaopu 授权）：dev 去 NAT、去 ALB、Spot、定时缩到 0，约 $5/月；prod 未动。dev 只在每天 01:30–04:00 PT 运行 |
+| 1 | Growth time-lapse: 0–90 day timeline, interspecies competition, low-light zones; TS engine runs in a Web Worker | 🟢 v1 live | 11-12: sim-core TS engine + /studio/sim timeline; visuals approved, flag turned on |
+| 2 | 3D editor and renderer rework: drag-and-drop rocks / driftwood / plants, Iwagumi / Nature / Dutch templates, composition guides | 🟡 In progress | 11-12 r2: `<FrontalTank>` frontal stylized tank shipped. 11-14: FrontalTank 1.1.0 (role-based rocks, buried rocks, sloped substrate bed, rule-of-thirds / golden-ratio guides, layout cache) + 4 style templates (Iwagumi sanzon / triangle / concave / Dutch streets); the `styleTemplates` flag is **off by default, waiting for Xiaopu to confirm**. 11-15: drag editor v1 (FrontalTank 1.2.0 selectable / draggable, editor document model + undo/redo + `?scape=` share link, simulation re-runs on release); the `dragEditor` flag is **off by default**. 11-16: three driftwood styles (branchy / root / log, FrontalTank 1.3.0) + editor 1.1.0 (add rocks / driftwood, −/+ resize, change driftwood style, hardscape-only edits don't re-run the simulation) + fixed the 11-15 layout issues, still behind the `dragEditor` flag. Next: templates 1.0.2 (remove regulated species, put root driftwood up front), epiphytes tied to driftwood, ⌘K one-sentence scape generation |
+| 3 | AI features: photo recognition of aquatic plants + improvement suggestions; automatic layout by tank size and style | ⚪ Not started | |
+| 4 | Expand the plant library to 150+ species | 🟡 In progress | 11-12: 36 → 78; 11-13: → 111; 11-14: → 142; 11-15: → 157 species ✅ target reached. 11-16: schema 0.7.0 adds `regulated[]` (7 regulated species); 25 species' leaf dimensions replaced with sourced values (botany 0.7.1). 11-15 schema alignment: zod is the single source of truth, JSON Schema is generated automatically, Python validates with jsonschema, checked in CI. Many numeric values are still estimates awaiting sources |
+| 5 | Reduce infrastructure cost (remove NAT, trim Fargate) | 🟢 dev done | [infra#1](https://github.com/aquascape-studio/aquascape-infra/pull/1) merged (11-12, authorized by Xiaopu): dev has no NAT, no ALB, uses Spot, scheduled to scale to 0, about $5/month; prod untouched. dev only runs daily 01:30–04:00 PT |
 
-## 视觉风格（Xiaopu 于 2026-11-11 选定）
+## Visual style (chosen by Xiaopu on 2026-11-11)
 
-- **页面风格：Apple 官网感**。白色背景，留白多，大字号粗体标题（字距收紧），产品（水缸）是绝对主角，滚动时有流畅的动画，磨砂玻璃导航和控制条，按钮是胶囊形。整体精准、高级、克制。
-- **水缸本身：好看但风格化，不追求照片级写实**。像高质量游戏或 Apple 自己的 3D 插画：干净、柔和、精致。
-  - 叶片圆润、有厚度，带次表面散射 (subsurface scattering) 的柔和透光，叶片向上倾斜约 35°，正面看不能是侧边的细线。
-  - 配色：清新的绿色（深浅渐变），珊瑚橙作为红色水草的强调色；石头是光滑的雕塑感造型，不要粗糙的写实纹理。
-  - 柔和的影棚打光，背景纯白透亮。
-  - **只用正面视角**（像造景比赛照片那样正对着缸），不要侧视图和斜 45° 视角。
-  - 叶片要密、层次要多，不能稀疏，不能像火柴棍。
-- **已否决，不要再用**：墨绿深色主题 (ink-green)、纸白留白风 (A)、浅水蓝清透风 (B)、石墨灰仪器风 (C)、照片级写实、侧视图和斜视角。插件里的 ink-green-design-system skill 和 app-agent 的 ink-green 设定已弃用。
-- **视觉参考**：Design 画布 https://claude.ai/artifact/37R49gWPpKrP32C6ppm4Sa 的 "v3 · 超白玻璃" 页面。
-  - 从中提取的令牌 (design tokens)：背景 `#FFFFFF`，正文 `#1D1D1F`，次要文字 `#6E6E73`，卡片 `#F5F5F7`（圆角 28px），主色 `#0A6F78`（hover `#064C52`），健康绿 `#1D7A3E`，警示珊瑚 `#B2441F`；字体 Inter + Noto Sans SC；H1 `clamp(44px,6.6vw,88px)` 700 字距 -0.04em；磨砂导航 52px `rgba(255,255,255,.78)` + `blur(20px) saturate(180%)`；胶囊控制条 + 44px 圆形播放键 + 分段跳转 10/35/60/90 天。
-- **上线规则**：首页、编辑器的视觉改动先放在功能开关 (feature flag) 后面，部署时默认关闭；截图请 Xiaopu 确认，认可后下一轮再打开。
+- **Page style: Apple-website feel**. White background, generous whitespace, large bold headlines (tight letter-spacing), the product (the tank) is the absolute star, smooth scroll animations, frosted-glass nav and control bars, pill-shaped buttons. Overall precise, premium, restrained.
+- **The tank itself: attractive but stylized, not photorealistic**. Like a high-quality game or Apple's own 3D illustrations: clean, soft, refined.
+  - Leaves are rounded and have thickness, with soft light transmission via subsurface scattering; leaves tilt upward about 35°, and seen from the front they must not be thin lines like the side edge.
+  - Palette: fresh greens (dark-to-light gradients), coral orange as the accent for red plants; rocks are smooth, sculptural shapes, no rough realistic textures.
+  - Soft studio lighting, pure white translucent background.
+  - **Frontal view only** (facing the tank straight on, like an aquascaping contest photo); no side view and no oblique 45° view.
+  - Leaves must be dense and layered, never sparse, never like matchsticks.
+- **Rejected, do not use again**: dark ink-green theme (ink-green), paper-white whitespace style (A), light water-blue clear style (B), graphite-gray instrument style (C), photorealism, side and oblique views. The ink-green-design-system skill in the plugin and app-agent's ink-green settings are deprecated.
+- **Visual reference**: the "v3 · Ultra-white glass" page on the Design canvas (https://claude.ai/artifact/37R49gWPpKrP32C6ppm4Sa).
+  - Design tokens extracted from it: background `#FFFFFF`, body text `#1D1D1F`, secondary text `#6E6E73`, card `#F5F5F7` (28px radius), primary `#0A6F78` (hover `#064C52`), healthy green `#1D7A3E`, warning coral `#B2441F`; fonts Inter + Noto Sans SC; H1 `clamp(44px,6.6vw,88px)` 700 letter-spacing -0.04em; frosted nav 52px `rgba(255,255,255,.78)` + `blur(20px) saturate(180%)`; pill control bar + 44px round play button + segmented jumps 10/35/60/90 days.
+- **Launch rule**: visual changes to the home page and editor go behind a feature flag, off by default on deploy; ask Xiaopu to confirm from screenshots, and turn on in the next round once approved.
 
-## Xiaopu 的长期授权（2026-11-12）
-Xiaopu 说："该合并合并，不用等我 approve，我一周之后来看成果。"因此从 11-12 起到他回来（约 11-19）：
-- **视觉改动不再等确认**：做完、自测、截图写进迭代日志后，直接打开功能开关上线；每次都保留"revert 开关 PR"的回滚路径。
-- **可以合并待合并的 PR**（CI 绿、符合契约），包括已在 dev 生效的 infra PR。
-- **仍然不做**：在控制台/CLI 手动建资源、轮换或泄露密钥、超出预算、删仓库、force-push 默认分支。新增 AWS 资源的 PR 照常写清费用；prod 资源删除或替换仍先在日志里写清理由，能等就等他回来。
-- 每天照常写迭代日志 + 截图，方便他回来一次看完。
+## Xiaopu's standing authorization (2026-11-12)
+Xiaopu said: "该合并合并，不用等我 approve，我一周之后来看成果。" ("Merge whatever should be merged, no need to wait for my approval, I'll look at the results in a week.") So from 11-12 until they return (about 11-19):
+- **Visual changes no longer wait for confirmation**: once done, self-tested, and the screenshots are in the iteration log, turn on the feature flag and ship directly; always keep a "revert flag PR" rollback path.
+- **Pending PRs may be merged** (CI green, contract-compliant), including infra PRs already in effect on dev.
+- **Still not done**: manually creating resources in the console/CLI, rotating or leaking secrets, exceeding budget, deleting repos, force-pushing the default branch. PRs that add AWS resources still state the cost clearly; deleting or replacing prod resources still requires the reason to be written in the log first, and should wait for their return if possible.
+- Keep writing the iteration log + screenshots every day, so they can review everything in one pass on return.
 
-## 交互原则
-首页即水缸；画布优先 (canvas-first) 编辑器，底部时间轴叠加生长曲线；⌘K 命令面板一句话造景；动效有功能 (functional motion)，尊重 prefers-reduced-motion；对比度 4.5:1，触控目标 ≥44px。
+## Interaction principles
+The home page is the tank; canvas-first editor with a growth curve overlaid on the bottom timeline; ⌘K command palette for one-sentence scape generation; functional motion that respects prefers-reduced-motion; contrast 4.5:1, touch targets ≥44px.
 
-## 功能开关 (feature flags)
+## Feature flags
 
-| 开关 | 环境变量 | 默认 | 状态 |
+| Flag | Environment variable | Default | Status |
 |------|----------|------|------|
-| `growthTimelapse` | `NEXT_PUBLIC_FF_GROWTH_TIMELAPSE` | 开（prod） | Xiaopu 于 2026-11-12 批准视觉，aquascape-web#3 打开 |
-| `stylizedTank` | `NEXT_PUBLIC_FF_STYLIZED_TANK` | 开（prod） | Xiaopu 免确认，[web#6](https://github.com/aquascape-studio/aquascape-web/pull/6) 打开（11-12）；回滚 = revert web#6 |
-| `styleTemplates` | `NEXT_PUBLIC_FF_STYLE_TEMPLATES` | 关 | [web#9](https://github.com/aquascape-studio/aquascape-web/pull/9)（11-14）。等 Xiaopu 看截图后再开 |
-| `dragEditor` | `NEXT_PUBLIC_FF_DRAG_EDITOR` | 关 | [web#12](https://github.com/aquascape-studio/aquascape-web/pull/12)（11-15）、[web#15](https://github.com/aquascape-studio/aquascape-web/pull/15)（11-16 沉木 / 缩放 / 布局修复）。需要 stylizedTank；建议和 styleTemplates 一起确认后一起打开 |
+| `growthTimelapse` | `NEXT_PUBLIC_FF_GROWTH_TIMELAPSE` | on (prod) | Visuals approved by Xiaopu on 2026-11-12, turned on in aquascape-web#3 |
+| `stylizedTank` | `NEXT_PUBLIC_FF_STYLIZED_TANK` | on (prod) | Turned on without confirmation per Xiaopu, [web#6](https://github.com/aquascape-studio/aquascape-web/pull/6) (11-12); rollback = revert web#6 |
+| `styleTemplates` | `NEXT_PUBLIC_FF_STYLE_TEMPLATES` | off | [web#9](https://github.com/aquascape-studio/aquascape-web/pull/9) (11-14). Turn on after Xiaopu has seen the screenshots |
+| `dragEditor` | `NEXT_PUBLIC_FF_DRAG_EDITOR` | off | [web#12](https://github.com/aquascape-studio/aquascape-web/pull/12) (11-15), [web#15](https://github.com/aquascape-studio/aquascape-web/pull/15) (11-16 driftwood / resize / layout fixes). Requires stylizedTank; recommended to confirm together with styleTemplates and turn both on together |
 
-## 契约 (contracts, orchestrator-only)
-- `aquascape-sim/ts/src/contract.ts` — `@aquascape/sim-core` v1.1.1（SimInput / Frame / SimResult / Worker 协议；+parDailyMean、substrate 网格、cancelled、事件与包络规则）
-- `aquascape-render/src/contract.ts` — FrontalTank v1.3.0（1.1：石头角色、buriedFrac、guides、focalPoint、bed；1.2：editable / selected / onSelect / onMove / footprintContains；1.3：woodStyle、单件几何缓存、clampHardscapeXZ）
-- `aquascape-web/lib/templates/contract.ts` — 风格模板 v1.0.1（ScapeTemplate / instantiate；+iwagumi 构图、按缸面积缩放数量）
-- `aquascape-web/lib/editor/contract.ts` — 拖拽编辑器 v1.1.0（ScapeDoc / EditOp / reducer / encodeScape；1.1：resize / addHardscape / setWoodStyle / previewBase / needsResim）
-- `aquascape-botany/js/schema.ts`（zod，唯一真源，schema 0.7.0）→ 生成 `schema/plant.schema.json`；含可选 `visual` 块、可选 `regulated[]`
+## Contracts (orchestrator-only)
+- `aquascape-sim/ts/src/contract.ts` — `@aquascape/sim-core` v1.1.1 (SimInput / Frame / SimResult / Worker protocol; + parDailyMean, substrate grid, cancelled, event and envelope rules)
+- `aquascape-render/src/contract.ts` — FrontalTank v1.3.0 (1.1: rock roles, buriedFrac, guides, focalPoint, bed; 1.2: editable / selected / onSelect / onMove / footprintContains; 1.3: woodStyle, per-piece geometry cache, clampHardscapeXZ)
+- `aquascape-web/lib/templates/contract.ts` — style templates v1.0.1 (ScapeTemplate / instantiate; + iwagumi composition, count scaled by tank area)
+- `aquascape-web/lib/editor/contract.ts` — drag editor v1.1.0 (ScapeDoc / EditOp / reducer / encodeScape; 1.1: resize / addHardscape / setWoodStyle / previewBase / needsResim)
+- `aquascape-botany/js/schema.ts` (zod, single source of truth, schema 0.7.0) → generates `schema/plant.schema.json`; includes optional `visual` block, optional `regulated[]`
 
-## 当前视觉决定（11-12 r2）
-- 3D 水缸：实例化 (instancing) 带厚度圆润叶片 + shader 背光假透光（不用 transmission，性能原因）；纯白影棚 + 柔光；只正面相机；光滑卵石；坡形底床；红色水草用 botany `tipColorHex`，没有时用珊瑚橙 #E8735A。
+## Current visual decisions (11-12 r2)
+- 3D tank: instanced rounded leaves with thickness + shader back-light faking translucency (no transmission, for performance); pure white studio + soft light; frontal camera only; smooth pebbles; sloped substrate bed; red plants use botany `tipColorHex`, falling back to coral orange #E8735A when absent.
 
-## 当前视觉决定（11-14）
-- 石头：按 Iwagumi 角色塑形（主石最高略前倾，副石/配石依次低宽，散石扁平），光滑雕塑感，埋入底床。
-- 茎草：对生/轮生/互生叶序，叶片上倾约 35°，顶端收芽，有侧枝（去掉"鱼骨"感）。
-- 辅助线：1px #1D1D1F 35% 透明度 + 焦点圈，只在屏幕空间叠加。
-- 模板条：磨砂胶囊条 + 分段控件，主色 #0A6F78。
-- 字体：Inter（@fontsource 打包）+ 系统中文字体栈，构建不联网。
+## Current visual decisions (11-14)
+- Rocks: shaped by Iwagumi role (main stone tallest and leaning slightly forward, secondary/companion stones progressively lower and wider, scatter stones flat), smooth sculptural look, buried in the substrate bed.
+- Stem plants: opposite / whorled / alternate leaf arrangement, leaves tilted up about 35°, tips closing into a bud, with side branches (removes the "fishbone" look).
+- Guides: 1px #1D1D1F at 35% opacity + focal circle, overlaid in screen space only.
+- Template bar: frosted pill bar + segmented control, primary #0A6F78.
+- Fonts: Inter (bundled via @fontsource) + system Chinese font stack, so the build needs no network.
 
-## 当前视觉决定（11-15）
-- 选中：底床上一圈柔和的主色 #0A6F78（60%）光弧，只画前半圈（正面视角下后半圈被草毯挡住）；拖动时轻微抬起 0.4 cm；没有箭头/坐标轴之类的 gizmo。
-- 编辑工具条：磨砂胶囊（撤销 / 重做 / 删除 / 复制分享链接），下面一行"选择"石头芯片和"添加"水草芯片，触控目标 ≥44px。
+## Current visual decisions (11-15)
+- Selection: a soft arc of primary #0A6F78 (60%) on the substrate bed, drawn only as the front half (in the frontal view the back half is hidden by the plant carpet); lifts slightly by 0.4 cm while dragging; no gizmos such as arrows or axes.
+- Edit toolbar: frosted pill (undo / redo / delete / copy share link), below it a row of "Select" rock chips and an "Add" plant chips row, touch targets ≥44px.
 
-## 当前视觉决定（11-16）
-- 沉木：圆润渐细的管状，分叉处柔和过渡，枝梢圆头；无树皮纹理、无硬折痕；暖棕 #7A5A43（根部）→ #A88466（枝梢）渐变，低光泽；只埋 5%。三种造型：枝状（上扬扇形树冠）、树根（30–45° 倾斜主干 + 根盘）、横木（低矮横卧，给附生植物当平台）。
-- 缩放：工具条上的 −/+ 胶囊按钮 + 键盘，不做 3D 手柄。沉木造型用分段控件"枝状 / 树根 / 横木"。
-- 管制物种：只在添加芯片的提示和读屏文字里显示"部分地区管制"，不用醒目的警告色。
+## Current visual decisions (11-16)
+- Driftwood: rounded, tapering tubes with soft transitions at forks and round-tipped twig ends; no bark texture and no hard creases; warm brown gradient #7A5A43 (base) → #A88466 (twig tips), low gloss; buried only 5%. Three styles: branchy (upward-fanning crown), root (30–45° leaning trunk + root plate), log (low and lying horizontal, serving as a platform for epiphytes).
+- Resize: −/+ pill buttons on the toolbar + keyboard, no 3D handles. Driftwood style uses the segmented control "枝状 / 树根 / 横木" ("Branchy / Root / Log").
+- Regulated species: shown only as "部分地区管制" ("Regulated in some regions") in the add chip's hint and screen-reader text, with no prominent warning color.
 
-## 长期授权的执行说明（11-16）
-ROADMAP 里记录的"视觉改动不再等确认"与每日定时任务提示词（视觉改动等确认）冲突。11-14 起的做法都是：**开关保持关闭，等 Xiaopu 在 issue 里回复"可以开"**。以定时任务提示词为准，直到 Xiaopu 另行说明。
+## Notes on executing the standing authorization (11-16)
+The ROADMAP's "visual changes no longer wait for confirmation" conflicts with the daily scheduled-task prompt (visual changes wait for confirmation). Since 11-14 the practice has been: **keep the flag off and wait for Xiaopu to reply "可以开" ("OK to enable") in the issue**. The scheduled-task prompt takes precedence until Xiaopu says otherwise.
