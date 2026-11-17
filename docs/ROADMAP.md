@@ -1,6 +1,6 @@
 # aquascape-studio ROADMAP
 
-> **Language rule (owner, 2026-11-17): everything public on GitHub — issues, PRs, comments, commits, docs including this file and `docs/iterations/` — is written in English from now on.** Only the end-of-run chat summary / push notification to the owner stays in Chinese. See `CLAUDE.md`. The docs were translated to English on 2026-11-17; quoted UI copy is given in English (the UI itself is bilingual).
+> **Language rule (owner, 2026-11-17): everything on GitHub — issues, PRs, comments, commits, docs, code — and the product itself (app UI, plant library) is English-only.** Only the end-of-run chat summary / push notification to the owner stays in Chinese. See `CLAUDE.md`.
 
 > Maintainer: orchestrator (also product manager). Updated at the end of every iteration. Last updated: 2026-11-16.
 
@@ -28,7 +28,7 @@
   - Leaves must be dense and layered, never sparse, never like matchsticks.
 - **Rejected, do not use again**: dark ink-green theme (ink-green), paper-white whitespace style (A), light water-blue clear style (B), graphite-gray instrument style (C), photorealism, side and oblique views. The ink-green-design-system skill in the plugin and app-agent's ink-green settings are deprecated.
 - **Visual reference**: the "v3 · Ultra-white glass" page on the Design canvas (https://claude.ai/artifact/37R49gWPpKrP32C6ppm4Sa).
-  - Design tokens extracted from it: background `#FFFFFF`, body text `#1D1D1F`, secondary text `#6E6E73`, card `#F5F5F7` (28px radius), primary `#0A6F78` (hover `#064C52`), healthy green `#1D7A3E`, warning coral `#B2441F`; fonts Inter + Noto Sans SC; H1 `clamp(44px,6.6vw,88px)` 700 letter-spacing -0.04em; frosted nav 52px `rgba(255,255,255,.78)` + `blur(20px) saturate(180%)`; pill control bar + 44px round play button + segmented jumps 10/35/60/90 days.
+  - Design tokens extracted from it: background `#FFFFFF`, body text `#1D1D1F`, secondary text `#6E6E73`, card `#F5F5F7` (28px radius), primary `#0A6F78` (hover `#064C52`), healthy green `#1D7A3E`, warning coral `#B2441F`; fonts Inter (Noto Sans SC dropped 2026-11-17, app is English-only); H1 `clamp(44px,6.6vw,88px)` 700 letter-spacing -0.04em; frosted nav 52px `rgba(255,255,255,.78)` + `blur(20px) saturate(180%)`; pill control bar + 44px round play button + segmented jumps 10/35/60/90 days.
 - **Launch rule**: visual changes to the home page and editor go behind a feature flag, off by default on deploy; ask Xiaopu to confirm from screenshots, and turn on in the next round once approved.
 
 ## Xiaopu's standing authorization (2026-11-12)
@@ -65,7 +65,7 @@ The home page is the tank; canvas-first editor with a growth curve overlaid on t
 - Stem plants: opposite / whorled / alternate leaf arrangement, leaves tilted up about 35°, tips closing into a bud, with side branches (removes the "fishbone" look).
 - Guides: 1px #1D1D1F at 35% opacity + focal circle, overlaid in screen space only.
 - Template bar: frosted pill bar + segmented control, primary #0A6F78.
-- Fonts: Inter (bundled via @fontsource) + system Chinese font stack, so the build needs no network.
+- Fonts: Inter (bundled via @fontsource), so the build needs no network. (The system Chinese font stack was dropped on 2026-11-17 when the app became English-only.)
 
 ## Current visual decisions (11-15)
 - Selection: a soft arc of primary #0A6F78 (60%) on the substrate bed, drawn only as the front half (in the frontal view the back half is hidden by the plant carpet); lifts slightly by 0.4 cm while dragging; no gizmos such as arrows or axes.
@@ -73,8 +73,8 @@ The home page is the tank; canvas-first editor with a growth curve overlaid on t
 
 ## Current visual decisions (11-16)
 - Driftwood: rounded, tapering tubes with soft transitions at forks and round-tipped twig ends; no bark texture and no hard creases; warm brown gradient #7A5A43 (base) → #A88466 (twig tips), low gloss; buried only 5%. Three styles: branchy (upward-fanning crown), root (30–45° leaning trunk + root plate), log (low and lying horizontal, serving as a platform for epiphytes).
-- Resize: −/+ pill buttons on the toolbar + keyboard, no 3D handles. Driftwood style uses the segmented control "Branchy / Root / Log" (bilingual in the UI).
-- Regulated species: shown only as "Regulated in some regions" (bilingual in the UI) in the add chip's hint and screen-reader text, with no prominent warning color.
+- Resize: −/+ pill buttons on the toolbar + keyboard, no 3D handles. Driftwood style uses the segmented control "Branchy / Root / Log" .
+- Regulated species: shown only as "Regulated in some regions"  in the add chip's hint and screen-reader text, with no prominent warning color.
 
 ## Notes on executing the standing authorization (11-16)
 The ROADMAP's "visual changes no longer wait for confirmation" conflicts with the daily scheduled-task prompt (visual changes wait for confirmation). Since 11-14 the practice has been: **keep the flag off and wait for Xiaopu to reply "OK to enable" in the issue**. The scheduled-task prompt takes precedence until Xiaopu says otherwise.
